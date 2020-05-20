@@ -1,29 +1,18 @@
-name: Dart CI
-
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
-jobs:
-  build:
-
+on: push
+jobs: 
+  build-and-test: 
     runs-on: ubuntu-latest
-
-    container:
-      image:  google/dart:latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Install dependencies
-      run: |
-        tar xf ~/Downloads/flutter_linux_1.17.1-stable.tar.xz
-        git clone https://github.com/flutter/flutter.git -b stable
-        export PATH="$PATH:`pwd`/flutter/bin"
-        flutter precache
-        flutter build apk
-        flutter pub get
-        
-    - name: Run tests
-      run: pub run test
+    - uses: actions/checkout@v1 
+    # The flutter action needs java so include it
+    - uses: actions/setup-java@v1
+      with:
+        java-version: '12.x'
+    # Include the flutter action
+    - uses: subosito/flutter-action@v1
+      with:
+        channel: 'stable'  
+    # Get flutter packages
+    - run: flutter pub get
+    # Build :D 
+    - run: flutter build aot
