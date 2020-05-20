@@ -17,6 +17,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
-      run: flutter pub get
+      run: |
+        cd ~/development
+        tar xf ~/Downloads/flutter_linux_1.17.1-stable.tar.xz
+        git clone https://github.com/flutter/flutter.git -b stable
+        export PATH="$PATH:`pwd`/flutter/bin"
+        flutter precache
+        flutter pub get
+        
     - name: Run tests
       run: pub run test
