@@ -4,11 +4,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1 
-    # The flutter action needs java so include it
     - uses: actions/setup-java@v1
       with:
         java-version: '12.x'
-    # Include the flutter action
     - uses: subosito/flutter-action@v1
       with:
         channel: 'stable'  
