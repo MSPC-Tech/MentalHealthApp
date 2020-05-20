@@ -23,6 +23,7 @@ jobs:
         git clone https://github.com/flutter/flutter.git -b stable
         export PATH="$PATH:`pwd`/flutter/bin"
         flutter precache
+        flutter build apk
         flutter pub get
         
     - name: Run tests
